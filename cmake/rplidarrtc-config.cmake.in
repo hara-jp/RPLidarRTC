@@ -1,0 +1,54 @@
+# RPLidarRTC CMake config file
+#
+# This file sets the following variables:
+# RPLidarRTC_FOUND - Always TRUE.
+# RPLidarRTC_INCLUDE_DIRS - Directories containing the RPLidarRTC include files.
+# RPLidarRTC_IDL_DIRS - Directories containing the RPLidarRTC IDL files.
+# RPLidarRTC_LIBRARIES - Libraries needed to use RPLidarRTC.
+# RPLidarRTC_DEFINITIONS - Compiler flags for RPLidarRTC.
+# RPLidarRTC_VERSION - The version of RPLidarRTC found.
+# RPLidarRTC_VERSION_MAJOR - The major version of RPLidarRTC found.
+# RPLidarRTC_VERSION_MINOR - The minor version of RPLidarRTC found.
+# RPLidarRTC_VERSION_REVISION - The revision version of RPLidarRTC found.
+# RPLidarRTC_VERSION_CANDIDATE - The candidate version of RPLidarRTC found.
+
+message(STATUS "Found RPLidarRTC-@PROJECT_VERSION@")
+set(RPLidarRTC_FOUND TRUE)
+
+find_package(<dependency> REQUIRED)
+
+#set(RPLidarRTC_INCLUDE_DIRS
+#    "@CMAKE_INSTALL_PREFIX@/include/@PROJECT_NAME_LOWER@-@PROJECT_VERSION_MAJOR@"
+#    ${<dependency>_INCLUDE_DIRS}
+#    )
+#
+#set(RPLidarRTC_IDL_DIRS
+#    "@CMAKE_INSTALL_PREFIX@/include/@PROJECT_NAME_LOWER@-@PROJECT_VERSION_MAJOR@/idl")
+set(RPLidarRTC_INCLUDE_DIRS
+    "@CMAKE_INSTALL_PREFIX@/include/@CPACK_PACKAGE_FILE_NAME@"
+    ${<dependency>_INCLUDE_DIRS}
+    )
+set(RPLidarRTC_IDL_DIRS
+    "@CMAKE_INSTALL_PREFIX@/include/@CPACK_PACKAGE_FILE_NAME@/idl")
+
+
+if(WIN32)
+    set(RPLidarRTC_LIBRARIES
+        "@CMAKE_INSTALL_PREFIX@/@LIB_INSTALL_DIR@/@CMAKE_SHARED_LIBRARY_PREFIX@@PROJECT_NAME_LOWER@@CMAKE_STATIC_LIBRARY_SUFFIX@"
+        ${<dependency>_LIBRARIES}
+        )
+else(WIN32)
+    set(RPLidarRTC_LIBRARIES
+        "@CMAKE_INSTALL_PREFIX@/@LIB_INSTALL_DIR@/@CMAKE_SHARED_LIBRARY_PREFIX@@PROJECT_NAME_LOWER@@CMAKE_SHARED_LIBRARY_SUFFIX@"
+        ${<dependency>_LIBRARIES}
+        )
+endif(WIN32)
+
+set(RPLidarRTC_DEFINITIONS ${<dependency>_DEFINITIONS})
+
+set(RPLidarRTC_VERSION @PROJECT_VERSION@)
+set(RPLidarRTC_VERSION_MAJOR @PROJECT_VERSION_MAJOR@)
+set(RPLidarRTC_VERSION_MINOR @PROJECT_VERSION_MINOR@)
+set(RPLidarRTC_VERSION_REVISION @PROJECT_VERSION_REVISION@)
+set(RPLidarRTC_VERSION_CANDIDATE @PROJECT_VERSION_CANDIDATE@)
+

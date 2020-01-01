@@ -1,0 +1,54 @@
+# RPLidarTC CMake config file
+#
+# This file sets the following variables:
+# RPLidarTC_FOUND - Always TRUE.
+# RPLidarTC_INCLUDE_DIRS - Directories containing the RPLidarTC include files.
+# RPLidarTC_IDL_DIRS - Directories containing the RPLidarTC IDL files.
+# RPLidarTC_LIBRARIES - Libraries needed to use RPLidarTC.
+# RPLidarTC_DEFINITIONS - Compiler flags for RPLidarTC.
+# RPLidarTC_VERSION - The version of RPLidarTC found.
+# RPLidarTC_VERSION_MAJOR - The major version of RPLidarTC found.
+# RPLidarTC_VERSION_MINOR - The minor version of RPLidarTC found.
+# RPLidarTC_VERSION_REVISION - The revision version of RPLidarTC found.
+# RPLidarTC_VERSION_CANDIDATE - The candidate version of RPLidarTC found.
+
+message(STATUS "Found RPLidarTC-@PROJECT_VERSION@")
+set(RPLidarTC_FOUND TRUE)
+
+find_package(<dependency> REQUIRED)
+
+#set(RPLidarTC_INCLUDE_DIRS
+#    "@CMAKE_INSTALL_PREFIX@/include/@PROJECT_NAME_LOWER@-@PROJECT_VERSION_MAJOR@"
+#    ${<dependency>_INCLUDE_DIRS}
+#    )
+#
+#set(RPLidarTC_IDL_DIRS
+#    "@CMAKE_INSTALL_PREFIX@/include/@PROJECT_NAME_LOWER@-@PROJECT_VERSION_MAJOR@/idl")
+set(RPLidarTC_INCLUDE_DIRS
+    "@CMAKE_INSTALL_PREFIX@/include/@CPACK_PACKAGE_FILE_NAME@"
+    ${<dependency>_INCLUDE_DIRS}
+    )
+set(RPLidarTC_IDL_DIRS
+    "@CMAKE_INSTALL_PREFIX@/include/@CPACK_PACKAGE_FILE_NAME@/idl")
+
+
+if(WIN32)
+    set(RPLidarTC_LIBRARIES
+        "@CMAKE_INSTALL_PREFIX@/@LIB_INSTALL_DIR@/@CMAKE_SHARED_LIBRARY_PREFIX@@PROJECT_NAME_LOWER@@CMAKE_STATIC_LIBRARY_SUFFIX@"
+        ${<dependency>_LIBRARIES}
+        )
+else(WIN32)
+    set(RPLidarTC_LIBRARIES
+        "@CMAKE_INSTALL_PREFIX@/@LIB_INSTALL_DIR@/@CMAKE_SHARED_LIBRARY_PREFIX@@PROJECT_NAME_LOWER@@CMAKE_SHARED_LIBRARY_SUFFIX@"
+        ${<dependency>_LIBRARIES}
+        )
+endif(WIN32)
+
+set(RPLidarTC_DEFINITIONS ${<dependency>_DEFINITIONS})
+
+set(RPLidarTC_VERSION @PROJECT_VERSION@)
+set(RPLidarTC_VERSION_MAJOR @PROJECT_VERSION_MAJOR@)
+set(RPLidarTC_VERSION_MINOR @PROJECT_VERSION_MINOR@)
+set(RPLidarTC_VERSION_REVISION @PROJECT_VERSION_REVISION@)
+set(RPLidarTC_VERSION_CANDIDATE @PROJECT_VERSION_CANDIDATE@)
+

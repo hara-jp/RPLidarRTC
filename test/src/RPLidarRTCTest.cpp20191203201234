@@ -1,0 +1,168 @@
+﻿// -*- C++ -*-
+/*!
+ * @file  RPLidarRTCTest.cpp
+ * @brief RT Component for RPLiDAR
+ * @date $Date$
+ *
+ * $Id$
+ */
+
+#include "RPLidarRTCTest.h"
+
+// Module specification
+// <rtc-template block="module_spec">
+static const char* rplidarrtc_spec[] =
+  {
+    "implementation_id", "RPLidarRTCTest",
+    "type_name",         "RPLidarRTCTest",
+    "description",       "RT Component for RPLiDAR",
+    "version",           "1.0.0",
+    "vendor",            "aist",
+    "category",          "Sensor",
+    "activity_type",     "PERIODIC",
+    "kind",              "DataFlowComponent",
+    "max_instance",      "1",
+    "language",          "C++",
+    "lang_type",         "compile",
+    ""
+  };
+// </rtc-template>
+
+/*!
+ * @brief constructor
+ * @param manager Maneger Object
+ */
+RPLidarRTCTest::RPLidarRTCTest(RTC::Manager* manager)
+    // <rtc-template block="initializer">
+  : RTC::DataFlowComponentBase(manager),
+    m_range_inIn("range_in", m_range_in),
+    m_odometryIn("odometry", m_odometry),
+    m_range_outOut("range_out", m_range_out)
+
+    // </rtc-template>
+{
+}
+
+/*!
+ * @brief destructor
+ */
+RPLidarRTCTest::~RPLidarRTCTest()
+{
+}
+
+
+
+RTC::ReturnCode_t RPLidarRTCTest::onInitialize()
+{
+  // Registration: InPort/OutPort/Service
+  // <rtc-template block="registration">
+  // Set InPort buffers
+  addInPort("range_out", m_range_outIn);
+  
+  // Set OutPort buffer
+  addOutPort("range_in", m_range_inOut);
+  addOutPort("odometry", m_odometryOut);
+  
+  // Set service provider to Ports
+  
+  // Set service consumers to Ports
+  
+  // Set CORBA Service Ports
+  
+  // </rtc-template>
+
+  // <rtc-template block="bind_config">
+  // </rtc-template>
+  
+  return RTC::RTC_OK;
+}
+
+
+RTC::ReturnCode_t RPLidarRTCTest::onFinalize()
+{
+  return RTC::RTC_OK;
+}
+
+/*
+RTC::ReturnCode_t RPLidarRTCTest::onStartup(RTC::UniqueId ec_id)
+{
+  return RTC::RTC_OK;
+}
+*/
+
+/*
+RTC::ReturnCode_t RPLidarRTCTest::onShutdown(RTC::UniqueId ec_id)
+{
+  return RTC::RTC_OK;
+}
+*/
+
+
+RTC::ReturnCode_t RPLidarRTCTest::onActivated(RTC::UniqueId ec_id)
+{
+  return RTC::RTC_OK;
+}
+
+
+RTC::ReturnCode_t RPLidarRTCTest::onDeactivated(RTC::UniqueId ec_id)
+{
+  return RTC::RTC_OK;
+}
+
+
+RTC::ReturnCode_t RPLidarRTCTest::onExecute(RTC::UniqueId ec_id)
+{
+  return RTC::RTC_OK;
+}
+
+/*
+RTC::ReturnCode_t RPLidarRTCTest::onAborting(RTC::UniqueId ec_id)
+{
+  return RTC::RTC_OK;
+}
+*/
+
+/*
+RTC::ReturnCode_t RPLidarRTCTest::onError(RTC::UniqueId ec_id)
+{
+  return RTC::RTC_OK;
+}
+*/
+
+/*
+RTC::ReturnCode_t RPLidarRTCTest::onReset(RTC::UniqueId ec_id)
+{
+  return RTC::RTC_OK;
+}
+*/
+
+/*
+RTC::ReturnCode_t RPLidarRTCTest::onStateUpdate(RTC::UniqueId ec_id)
+{
+  return RTC::RTC_OK;
+}
+*/
+
+/*
+RTC::ReturnCode_t RPLidarRTCTest::onRateChanged(RTC::UniqueId ec_id)
+{
+  return RTC::RTC_OK;
+}
+*/
+
+
+
+extern "C"
+{
+ 
+  void RPLidarRTCTestInit(RTC::Manager* manager)
+  {
+    coil::Properties profile(rplidarrtc_spec);
+    manager->registerFactory(profile,
+                             RTC::Create<RPLidarRTCTest>,
+                             RTC::Delete<RPLidarRTCTest>);
+  }
+  
+};
+
+
